@@ -11,8 +11,8 @@ public class SpringBootLearnApplication {
 
 	public static void main(String[] args) {
 		// Enable DevTools restart
-		System.setProperty("spring.devtools.restart.enabled", "true");
-		System.setProperty("spring.devtools.livereload.enabled", "true");
+		// System.setProperty("spring.devtools.restart.enabled", "true");
+		// System.setProperty("spring.devtools.livereload.enabled", "true");
 		
 		SpringApplication.run(SpringBootLearnApplication.class, args);
 	}
