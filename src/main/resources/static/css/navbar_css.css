@@ -1,0 +1,11 @@
+.navbar-color {
+    background-color: #141e30;
+}
+
+#navbar-link li a:link {
+    color: #f8f9fa;
+}
+
+#navbar-link li a:hover {
+    color: rgba(255,255,255,.5);
+}

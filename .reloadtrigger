@@ -1,0 +1,6 @@
+# This file is used to manually trigger a restart of the Spring Boot application
+# Simply modify this file (e.g., add a comment or change a value) and save it
+# to force Spring Boot DevTools to restart the application
+
+# Current trigger value (change this to trigger a restart)
+trigger=11

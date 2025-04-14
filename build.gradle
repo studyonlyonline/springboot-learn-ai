@@ -1,0 +1,242 @@
+//// PROD build.gradle scrip
+
+
+//buildscript {
+//
+//    ext {
+//        springBootVersion = '2.1.3.RELEASE'
+//    }
+//
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//        //app engine dependency
+//        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.+'
+//    }
+//}
+//
+////gcp added
+//apply plugin: 'war'
+//
+//apply plugin: 'java'
+//apply plugin: 'eclipse'
+//apply plugin: 'idea'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'com.google.cloud.tools.appengine'
+//
+//group 'com.hcev'
+//version '1.0-SNAPSHOT'
+//
+//sourceCompatibility = 1.8
+//
+//repositories {
+//    google()
+//    mavenCentral()
+//}
+//
+//dependencies {
+//
+//    compile "org.springframework.boot:spring-boot-starter-web",
+//            { exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat' }
+//
+//
+//    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+//
+//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.1.3.RELEASE'
+//
+//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.3.RELEASE'
+//
+//    //cloud firestore
+//    compile 'com.google.cloud:google-cloud-firestore:1.32.0'
+//
+//    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+//    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+//
+//    //sendgrid api
+//    compile 'com.sendgrid:sendgrid-java:4.0.1'
+//
+//    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+//    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+//
+//
+//    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+//
+//    runtime('mysql:mysql-connector-java')
+//    compile group: 'com.google.cloud.sql', name: 'mysql-socket-factory', version: '1.0.11'
+//
+////    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+//
+//    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+//    //for getter and setters and constructors
+//    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+//    compileOnly "org.projectlombok:lombok"
+//
+//
+//    // https://mvnrepository.com/artifact/javax.servlet/jstl
+////    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+//
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+//}
+//
+//configurations {
+//    providedRuntime
+//}
+//
+//configurations.all {
+//    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+//    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+//}
+//
+//appengine {
+//    deploy {
+////        version = "GCLOUD_CONFIG"
+////        projectId = "GCLOUD_CONFIG"
+//        stopPreviousVersion = true
+//        promote = true
+//    }
+//}
+
+
+//dev build.gradle script
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java-library'
+
+group 'com.example'
+version '2.6.2'
+
+sourceCompatibility = 1.8
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+bootJar {
+    baseName "springbootlearn"
+}
+
+// Removed minification tasks as they were causing build issues
+
+// Configure test task to use JUnit 5
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    // Common module dependency
+    implementation project(':common-functionality-module')
+    
+    // Spring Boot dependencies
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '2.1.3.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.3.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.1.3.RELEASE'
+
+    // Google Cloud dependencies
+    implementation group: 'com.google.cloud', name: 'google-cloud-firestore', version: '3.1.0'
+    implementation group: 'com.google.cloud', name: 'google-cloud-storage', version: '1.17.0'
+
+    // Apache Commons
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.11.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.4'
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.9.0'
+
+    // AOP
+    implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.6'
+
+    // JPA
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+
+    // JSON-LD
+    implementation group: 'com.io-informatics.oss', name: 'jackson-jsonld', version: '0.1.1'
+
+    // HTTP Client
+    implementation group: 'com.squareup.okhttp', name: 'okhttp', version: '2.5.0'
+
+    // SendGrid
+    implementation group: 'com.sendgrid', name: 'sendgrid-java', version: '4.0.1'
+
+    // Caffeine Cache
+    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.9.2'
+
+    // JSoup
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
+
+    // JSTL
+    implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+    // Lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok'
+
+    // MapStruct
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.5.Final'
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.5.Final'
+    // Make sure lombok processor runs before mapstruct
+    annotationProcessor group: 'org.projectlombok', name: 'lombok'
+
+    // Testing
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.3.RELEASE'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.2'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.2'
+    
+    // Spring Boot DevTools for hot swapping
+    runtimeOnly group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.1.3.RELEASE'
+}
+
+//subprojects {
+//
+//    buildscript {
+//        repositories {
+//            mavenCentral()
+//        }
+//        dependencies {
+//            classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE")
+//        }
+//    }
+//
+//    group 'com.hcev'
+//    version '1.0'
+//
+//    apply plugin: 'java'
+//    apply plugin: 'eclipse'
+//    apply plugin: 'idea'
+//    apply plugin: 'org.springframework.boot'
+//    apply plugin: 'io.spring.dependency-management'
+//    apply plugin: 'java-library'
+//
+//    sourceCompatibility = 1.8
+//
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//
+//    dependencyManagement {
+//        imports {
+//            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.3.RELEASE")
+//        }
+//    }
+//
+//}

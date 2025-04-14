@@ -1,0 +1,45 @@
+/* 
+ * This CSS file demonstrates hot swapping with static resources.
+ * Try changing the styles while the application is running.
+ * After saving, the browser should automatically refresh to show your changes.
+ */
+
+.demo-box {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border: 2px solid #4682b4;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.demo-box h3 {
+    color: #4682b4;
+    margin-top: 0;
+}
+
+.demo-box p {
+    font-style: italic;
+}
+
+/* Try changing these colors or adding new styles while the app is running */
+.highlight {
+    background-color: #fffacd;
+    padding: 10px;
+    border-left: 4px solid #ffd700;
+    margin: 15px 0;
+}
+
+/* Button styles for JavaScript demo */
+#demo-button {
+    transition: all 0.3s ease;
+}
+
+#demo-button:hover {
+    background-color: #45a049 !important;
+}
+
+#demo-button.clicked {
+    background-color: #2196F3 !important;
+    transform: scale(1.1);
+}

@@ -1,0 +1,354 @@
+.main-page-container{
+  height: 100%;
+  width:auto;
+  /* border: 1px solid black; */
+  justify-content: center;
+  align-items: center;
+
+}
+.pic-slider-container{
+  height: 100%;
+  /* border: 1px solid black; */
+  margin: 10px;
+  /* border-radius: 5px; */
+}
+
+.car-img{
+    height:50%;
+    width:50%;
+    object-fit : cover;
+}
+
+.for-carousel {
+  width: 80%;
+  margin:20px auto;
+  position: sticky;
+}
+
+.carousel {
+  border: 2px solid #416be4;
+  height: 400px;
+  width:inherit;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.slider {
+  display: flex;
+  height: 100%;
+  width: 400%;
+}
+
+.slider section {
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+}
+.img-fluid{
+  border-radius:10%;
+}
+.left, .right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.arrow i {
+  font-size: 70px;
+  -webkit-user-select: none;
+  color: #416be4;
+}
+.left {
+  left: -35px;
+}
+.right {
+  right: -35px;
+}
+.control ul {
+  list-style: none;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  transform: translate(-50%);
+}
+.control ul li {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border: 2px solid #333;
+  border-radius: 50px;
+  margin: 10px;
+  cursor: pointer;
+}
+.control ul li.selected {
+  background: transparent;
+}
+
+.details-container{
+  height: 100%;
+  /* border: 1px solid black; */
+  margin: 10px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.details-data-header {
+  padding-bottom: 0px;
+  align-items: flex-start;
+}
+.assured-tag{
+  font-size: 15px;
+  vertical-align: sub;
+  color: #878787;
+}
+ .price{
+  font-size: 30px;
+  vertical-align: sub;
+  float: left;
+}
+ /* .old-price{
+  font-size: 14px;
+  text-decoration: line-through;
+  color: #878787;
+  float:none;
+} */
+.discount{
+  font-size: 20px;
+  color: forestgreen;
+}
+
+.links{
+  margin-bottom: 4px;
+}
+
+.buttons{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  margin-top : 5px;
+}
+
+.amazon,.flipkart{
+  margin-right: 5px;
+}
+.other{
+  text-decoration: underline;
+}
+.buy-now{
+  margin-right: 5px;
+}
+.price-container{
+  display: flex;
+  padding-top: 4px;
+  margin-top: 3px;
+  margin-right: 6px;
+  margin-bottom: 3px;
+}
+.old-price{
+  color: #878787;
+  font-size: 20px;
+}
+
+
+/* --------for the input labels----------------- */
+* { box-sizing:border-box; }
+
+/* basic stylings ------------------------------------------ */
+
+.form-inputs 		{
+  font-family:'Roboto';
+  width:300px;
+  margin:5px auto 0;
+  display:block;
+  background:#FFF;
+  padding:5px 5px 5px;
+}
+
+/* form starting stylings ------------------------------- */
+.group 			  {
+  position:relative;
+  margin-bottom:25px;
+}
+input 				{
+  font-size:12px;
+  padding:5px 5px 5px 5px;
+  display:block;
+  width:150px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+label 				 {
+  color:#999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label 		{
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
+}
+
+/* BOTTOM BARS ================================= */
+.bar 	{ position:relative; display:block; width:150px; }
+.bar:before, .bar:after 	{
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#5264AE;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%;
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+
+/* --------table styling--------- */
+.sub-header{
+  color: #4d4d4d;
+}
+.category{
+  color: #878787;
+  width: 50%;
+}
+.ext-tag,.assured-tag,.seller-tag{
+  color: #027CD5;
+}
+p{
+  color: forestgreen;
+}
+
+/* for col-lg screen size add extra margin of 30px */
+@media (min-width: 992px) {
+
+    .details-container{
+        margin-top: 30px;
+    }
+
+}
+
+@media (max-width:720px) {
+
+  .details-container
+     {
+       padding:0px;
+       display:inline-block;
+       width:auto;
+
+     }
+    .pic-slider-container
+     {
+        padding:0px;
+        display:inline-block;
+        width:auto;
+     }
+  .container
+    {
+    padding: 0px;
+    width: auto;
+    }
+    .img-tag{
+      height:inherit;
+      width: inherit;
+    }
+    input{
+      width:50%;
+      font-size: 60%;
+    }
+    /*.control{*/
+    /*  transparent*/
+    /*}*/
+
+ }
+ /* @media (max-width:320px) {
+   .details-container
+      {
+        padding:0px;
+        display:inline-block;
+         width:100%;
+      }
+     .pic-slider-container
+      {
+         padding:0px;
+         display:inline-block;
+         width:100%;
+      }
+   .container
+     {
+     padding: 0px;
+     width: 100%;
+     }
+     .img-tag{
+       height:inherit;
+       width: inherit;
+     }
+     input{
+       width:40%;
+       font-size: 50%;
+     }
+     .table{
+       width: auto;
+     }
+ } */

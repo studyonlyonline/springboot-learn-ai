@@ -1,0 +1,27 @@
+name,category,brand,minimumSellingPrice,maximumSellingPrice,stockAvailability,photoUrl,barcode
+Galaxy S23,Electronics,Samsung,499.99,599.99,25,/img/products/galaxy-s23.jpg,8801643566432
+iPhone 15,Electronics,Apple,799.99,999.99,15,/img/products/iphone-15.jpg,1942394561234
+Xperia 5,Electronics,Sony,399.99,499.99,30,/img/products/xperia-5.jpg,4901660397853
+G9 ThinQ,Electronics,LG,449.99,549.99,20,/img/products/g9-thinq.jpg,6925281967425
+XPS 15,Electronics,Dell,599.99,799.99,10,/img/products/xps-15.jpg,5397184312657
+Air Max 270,Clothing,Nike,59.99,89.99,50,/img/products/air-max-270.jpg,8845236719452
+Ultraboost 22,Clothing,Adidas,49.99,79.99,45,/img/products/ultraboost-22.jpg,4056567891234
+RS-X Sneakers,Clothing,Puma,39.99,69.99,35,/img/products/rs-x-sneakers.jpg,4059506781234
+Classic Leather,Clothing,Reebok,44.99,74.99,40,/img/products/classic-leather.jpg,4058027891234
+HOVR Phantom,Clothing,Under Armour,54.99,84.99,30,/img/products/hovr-phantom.jpg,1938472659123
+Smart Refrigerator,Home Appliances,Whirlpool,299.99,399.99,15,/img/products/smart-refrigerator.jpg,8837462519876
+Microwave Oven,Home Appliances,Samsung,349.99,449.99,20,/img/products/microwave-oven.jpg,8801643567149
+OLED TV,Home Appliances,LG,329.99,429.99,18,/img/products/oled-tv.jpg,6925281968132
+Dishwasher,Home Appliances,Bosch,379.99,479.99,12,/img/products/dishwasher.jpg,4242002923864
+Vacuum Cleaner,Home Appliances,Electrolux,359.99,459.99,14,/img/products/vacuum-cleaner.jpg,7319599037246
+MALM Bed Frame,Furniture,IKEA,199.99,299.99,25,/img/products/malm-bed-frame.jpg,7023847561928
+Chesterfield Sofa,Furniture,Ashley,299.99,399.99,20,/img/products/chesterfield-sofa.jpg,7348291657483
+Dining Table Set,Furniture,Wayfair,249.99,349.99,22,/img/products/dining-table-set.jpg,7348291657490
+Recliner Chair,Furniture,La-Z-Boy,349.99,449.99,15,/img/products/recliner-chair.jpg,7348291657506
+Bookshelf,Furniture,Pottery Barn,399.99,499.99,10,/img/products/bookshelf.jpg,7348291657513
+The Great Gatsby,Books,Penguin,14.99,24.99,100,/img/products/great-gatsby.jpg,9780743273565
+To Kill a Mockingbird,Books,HarperCollins,12.99,22.99,90,/img/products/to-kill-a-mockingbird.jpg,9780061120084
+1984,Books,Random House,13.99,23.99,95,/img/products/1984.jpg,9780451524935
+The Catcher in the Rye,Books,Simon & Schuster,15.99,25.99,85,/img/products/catcher-in-the-rye.jpg,9780316769488
+Pride and Prejudice,Books,Macmillan,11.99,21.99,105,/img/products/pride-and-prejudice.jpg,9780141439518
+Orient 6W bulb,Oriend,Bulb,50,55,100,/img/products/orient-bulb.jpg,8901023456789

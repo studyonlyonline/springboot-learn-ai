@@ -1,0 +1,14 @@
+.sale-offer-banner {
+    background-image: linear-gradient(45deg, #c2aee2, #cf7bb5, #e9849b, #ff9671, #eec77e, #dfde66);
+    background-size: 300%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    font-style: italic;
+    animation: sale-offer-animation 4s infinite alternate;
+}
+
+@keyframes sale-offer-animation {
+    0% {background-position: left}
+    100% {background-position: right}
+}

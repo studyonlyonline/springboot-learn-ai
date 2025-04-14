@@ -1,0 +1,118 @@
+.search-container {
+    margin-bottom: 20px;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+.product-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.product-thumbnail:hover {
+    transform: scale(1.1);
+}
+
+.no-photo {
+    color: #999;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.barcode-icon {
+    margin-left: 8px;
+    color: #0d6efd;
+    cursor: pointer;
+}
+
+.barcode-icon:hover {
+    color: #0a58ca;
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1050;
+}
+
+.ui-menu-item {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.ui-menu-item:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.stock-high {
+    color: green;
+    font-weight: bold;
+}
+
+.stock-medium {
+    color: orange;
+    font-weight: bold;
+}
+
+.stock-low {
+    color: red;
+    font-weight: bold;
+}
+
+.price-range {
+    font-weight: bold;
+}
+
+.filter-section {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.filter-title {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.filter-item {
+    margin-bottom: 5px;
+}
+
+.sortable {
+    cursor: pointer;
+}
+
+.sortable:hover {
+    background-color: #f1f1f1;
+}
+
+.sortable::after {
+    content: "↕";
+    margin-left: 5px;
+    opacity: 0.5;
+}
+
+.sortable.asc::after {
+    content: "↑";
+    opacity: 1;
+}
+
+.sortable.desc::after {
+    content: "↓";
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .filter-section {
+        margin-bottom: 20px;
+    }
+}

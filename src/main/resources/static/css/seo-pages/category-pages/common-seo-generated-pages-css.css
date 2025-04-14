@@ -1,0 +1,15 @@
+.page-content {
+    margin-top : 240px;
+}
+
+@media screen and (max-width: 1200px) {
+    .page-content {
+        margin-top: 70px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .page-content {
+        margin-top: 70px;
+    }
+}

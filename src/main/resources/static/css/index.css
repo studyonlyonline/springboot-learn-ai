@@ -1,0 +1,168 @@
+.page-content {
+    margin-top : 240px;
+}
+
+.top-card {
+    max-height: 50vh;
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+}
+
+.explore-heading {
+    margin-top: 10px;
+}
+
+/* start Product groups*/
+.product-group-section {
+    margin-top: 50px;
+}
+
+.item-group {
+    background: white;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.package-groups {
+    background-color: #754D4D4D;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/*end product groups*/
+
+/*high speed ev section*/
+.high-speed-ev {
+    margin-top: 50px;
+}
+
+
+/*end high speed ev section*/
+
+/*starts  ev section*/
+
+.ev-section {
+    margin-top: 50px;
+}
+
+/*.high-speed-ev-background {*/
+/*    background-image: url("https://www.benlingindia.com/wp-content/uploads/2020/10/AURA-1.jpg") ;*/
+/*    background-size: cover;*/
+/*    background-repeat: no-repeat;*/
+/*}*/
+
+.box {
+    position:relative;
+}
+
+.img-title{
+    position: absolute;
+    color: #fff;
+    /*text-align: center;*/
+    left: 5%;
+    right: 0;
+    top: 50%;
+    /*letter-spacing: 3px;*/
+}
+
+/*ends ev section*/
+
+/*blog section*/
+
+.blog-section {
+    margin-top: 50px;
+    background-color: #754D4D4D;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.scroll-container{
+    overflow-x: hidden;
+}
+
+.scroll-container .scroll-card-items {
+    transition: transform 0.5s;
+}
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.scroll-card-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    /*overflow: auto;*/
+}
+
+/*ends blog section*/
+
+/*testimonial sections*/
+
+.testimonials-section {
+    margin-top: 50px;
+    padding: 20px;
+    padding-bottom: 30px;
+}
+
+.testimonials-data {
+    min-height: 200px;
+    /*max-height: 200px;*/
+}
+
+.testimonial-card {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    /*padding-bottom: 20px;*/
+    min-height: 200px;
+
+}
+
+/*end testimonial section*/
+
+/*phone no section*/
+
+.query-section {
+    margin-top: 50px;
+}
+
+.phone-no-section {
+    background-image: linear-gradient(to right, rgb(255 0 0 / 54%), rgb(255 0 0 / 45%));
+    padding: 20px
+}
+
+.phone-no-style {
+    /*border: 1px solid #0B0C10;*/
+    padding-top: 15px;
+    padding-bottom: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*end phone no section*/
+
+@media screen and (max-width: 1200px) {
+    .page-content {
+        margin-top: 70px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .page-content {
+        margin-top: 70px;
+    }
+
+    .top-card {
+        max-height: 80vh;
+    }
+
+    .phone-no-style {
+        margin-top: 20px;
+    }
+}

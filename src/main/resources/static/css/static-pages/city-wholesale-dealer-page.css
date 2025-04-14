@@ -1,0 +1,17 @@
+.description {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    background-color: #dfeee0;
+    color: black;
+    text-align: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.cta-button {
+    border-radius: 0px;
+    background-color: black !important;
+    color: white !important;
+    padding: 10px 45px 10px 45px ;
+}

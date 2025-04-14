@@ -1,0 +1,836 @@
+.Main {
+    overflow: hidden;
+}
+
+.page-content {
+    margin-top : 240px;
+}
+
+@media screen and (max-width: 1200px) {
+    .page-content {
+        margin-top: 70px;
+    }
+}
+
+.part1
+{
+    /*
+    background-image: linear-gradient(to bottom,rgb(224, 176, 17),yellow);
+
+    background-image: linear-gradient(to bottom,rgb(91, 214, 245),rgb(0, 183, 255));
+
+    background: linear-gradient(40deg, #45cafc, #303f9f) !important;
+    */
+    background-image: linear-gradient(to bottom right,#9e3747,#A71D31,#3F0D12);
+    border-right: 1px;
+    border-color: black;
+    /*
+    border-bottom-right-radius: 70px;
+    */
+    border-bottom-right-radius: 150px;
+    padding-top: 40px;
+
+}
+
+.aura-specific-background {
+    background-image: linear-gradient(to bottom right,#37779ede,#1d72a7,#203f0dd1);
+}
+
+.believe-specific-background {
+    background-image: linear-gradient(to bottom right,#7034b1de,#45099b,#203f0dd1);
+}
+
+.denvo-specific-background {
+    background-image: linear-gradient(to bottom right,#323a47,#df9e9e,#203f0dd1);
+}
+
+/*
+.part2{
+    background-color: cadetblue;
+}
+*/
+
+.comp2{
+    visibility: hidden;
+}
+.head1{
+    font-family: 'Dancing Script', cursive;
+    font-size: 50px;
+}
+.right-part .simple-font{
+    font-size:80px;
+    letter-spacing: 1px !important;
+    color: rgb(15, 85, 74);
+    line-height: 88px;
+    font-weight: bold;
+}
+
+.bike1-name{
+    position: absolute;
+    font-size: 110px;
+    margin-left: 3%;
+    margin-top: -3%;
+    margin-bottom: 0em !important;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 5px 6px 5px #232124;
+    color: white;
+    z-index: 100;
+}
+.right-part{
+    text-align: center;
+    margin-top: 30%;
+}
+.two-links{
+
+}
+.link1 , .deal{
+    padding: 8px 40px;
+    color: white;
+    background-color: tomato;
+    border: 2px solid tomato;
+    border-radius: 20px;
+    font-weight: 600;
+}
+.two-links .link1:hover , .deal:hover{
+    transition: 0.6s;
+    color: tomato;
+    background-color: white;
+    text-decoration: none;
+}
+.deal{
+    float: right;
+    margin-top: 5px;
+}
+.sec2{
+    margin-top: 120px;
+}
+.Kilometer{
+    text-align: center;
+}
+.KM_text{
+    font-size: 25px;
+    font-weight: 600;
+    text-align: justify;
+    margin-top:30px;
+}
+.img3{
+    /*
+    filter: drop-shadow(5px 5px 5px #222);
+    */
+    float:right;
+    width: 100%;
+    height: 100%;
+}
+.sec3 .heading{
+    margin-top: 80px;
+    font-size: 100px;
+    font-weight: 700;
+    text-shadow: 5px 5px 3px darkgray;
+}
+.sec3 .sec3-content{
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 30px;
+}
+.sec4{
+    margin-top:80px;
+    overflow-x: hidden !important;
+}
+
+.specs{
+    padding: 2rem 0;
+}
+
+.specs-right {
+    background-color: #8080804a;
+}
+
+.key-specs{
+    font-size: 60px;
+    font-weight: 700;
+    /* text-decoration: underline; */
+    /* margin-bottom: 80px; */
+    /* text-shadow:3px 3px 3px rgb(100, 99, 99); */
+}
+.biggest_img{
+    /* filter: drop-shadow(5px 5px 5px rgb(175, 173, 173)); */
+    height: 800px;
+}
+.specs .specs-right{
+    /*
+    background-color:rgb(49, 117, 126);
+    */
+}
+.technical{
+
+}
+.first{
+    font-size: 22px;
+    font-weight: 700;
+}
+.first:hover{
+    transition: 0.5s;
+    color: lightgray;
+}
+.tech-perf{
+    color: rgb(255, 255, 255);
+}
+.f1{
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: 600;
+}
+.f2{
+    font-weight: 450;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width:1085px)
+{
+    .right-part .simple-font{
+        font-size:70px;
+        letter-spacing: 1px !important;
+        color: rgb(15, 85, 74);
+        line-height: 88px;
+        font-weight: bold;
+    }
+    .bike1-name{
+        font-size: 130px;
+    }
+}
+
+.bike1{
+    filter: drop-shadow(5px 5px 5px #222);
+}
+/*
+.fixed{
+    background-image: url(EVbattery.jpg);
+    z-index: -1;
+}
+.charge{
+    padding: 10rem 0;
+}
+*/
+.warranty1{
+    margin: 6rem 0 5rem 0;
+    font-size: 4rem;
+    font-weight: 700;
+    text-shadow: 5px 5px 4px darkgray;
+}
+.warranty2{
+    margin-bottom: 7rem;
+}
+.warranty2 .w1{
+    line-height: 0.5em;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.warranty2 .w2{
+    font-weight: 600;
+}
+.margin{
+    margin: 8% 0 10% 0;
+}
+.parallax{
+    background: url(https://okinawascooters.com/wp-content/uploads/2020/03/r30batery.jpg) repeat fixed 100%;
+
+}
+.parallax-inner{
+    padding-top: 20%;
+    padding-bottom:25%;
+    padding-left: 4%;
+    width: 35%;
+}
+.parallax h1{
+    font-weight: 650;
+}
+.parallax p{
+    font-weight: 600;
+}
+
+.sec7{
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+
+.dot2{
+    margin-left: 40% !important;
+}
+/*
+.between{
+    margin-top: 0 !important;
+    background: #f10011;
+    width: 86px;
+    height: 5px;
+}
+*/
+
+
+/* section 6 css for pricing */
+
+.sec6 {
+    padding-top: 40px;
+    padding-bottom: 100px;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2), 0 6px 9px 0px rgba(0, 0, 0, 0.19);
+}
+
+.pricing-div {
+    margin-top: 20px;
+}
+
+.on-road-price {
+    font-size:2.5rem;
+}
+
+.last-updated-price-date {
+    font-size: 0.8rem;
+    margin-top: 12px;
+}
+
+.old-price{
+  color: #878787;
+  font-size: 20px;
+}
+
+.discount{
+  font-size: 20px;
+  color: forestgreen;
+}
+
+.offer-string {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.vehicle-lead-form {
+  background-color: #dfeee0;
+  width:100%;
+  padding-left: 45px;
+  padding-right: 25px;
+}
+
+/* button css */
+.learn-more {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none !important;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.learn-more {
+    margin-top: 10px;
+    width: 12rem;
+    height: auto;
+}
+.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: hsla(0, 75%, 52%, 0.86);
+    border-radius: 1.625rem;
+}
+.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.25rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+}
+.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: black;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.learn-more:hover .circle {
+    width: 100%;
+    background: hsla(0, 75%, 52%, 0.86);
+}
+
+.learn-more:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+}
+
+.learn-more:hover .button-text {
+    color: #ffffff;
+}
+
+/* end section 6 css for pricing */
+
+.hide-lead-form {
+    display: none;
+}
+
+#successfully-submitted-lead-form {
+    display: none;
+}
+
+#failure-submitted-lead-form {
+    display: none;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  border: 10px solid transparent;
+  border-top-color: #f56;
+  border-left-color: #f56;
+  border-radius: 50%;
+  animation: loader .75s 30 ease forwards;
+}
+
+@keyframes loader {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.top-products {
+    margin-top : 70px;
+}
+
+@media screen and (max-width:1281px)
+{
+    .right-part .simple-font{
+        font-size:60px;
+        letter-spacing: 1px !important;
+        color: rgb(15, 85, 74);
+        line-height: 88px;
+        font-weight: bold;
+    }
+    .bike1-name{
+        font-size: 100px;
+    }
+    .sec3 .heading{
+        font-size: 70px;
+    }
+    .warranty2 .w2{
+        font-weight: 500;
+    }
+    .warranty2 .w1{
+        line-height: 0.5em;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+    .key-specs{
+        font-size: 50px;
+        font-weight: 700;
+    }
+    .f1{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .dot2{
+        visibility: hidden;
+    }
+    .parallax{
+        background: url(https://okinawascooters.com/wp-content/uploads/2020/03/r30batery.jpg) repeat fixed 100%;
+        width: auto;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    .two-links{
+        margin-top: -60px !important;
+    }
+
+    .biggest_img {
+        height: 800px;
+    }
+}
+
+@media screen and (max-width:1074px)
+{
+    .dot1{
+        visibility: hidden;
+    }
+    .right-part .simple-font{
+        line-height: 0;
+    }
+    .link1 , .deal{
+        padding: 3px 20px;
+        color: white;
+        background-color: tomato;
+        border: 2px solid tomato;
+        border-radius: 15px;
+        font-weight: 600;
+        margin-left: 4px;
+    }
+    .sec3 .heading{
+        font-size: 50px;
+    }
+    .warranty1{
+        font-size: 3rem;
+        font-weight: 700;
+    }
+    .warranty2 .w1{
+        font-size: 1rem;
+    }
+    .KM_text{
+        font-size: 20px;
+    }
+    .bike1-name{
+        font-size: 80px;
+        margin-top: -5%;
+    }
+    .two-links{
+        margin-top: -10px !important;
+    }
+}
+
+@media screen and (max-width:992px)
+{
+    .biggest_img {
+        height: 500px;
+    }
+
+    .sec4 .specs-right .technical, .performance{
+        text-align: center;
+    }
+
+    .specs-right {
+        margin-top: 30px;
+    }
+
+    .table{
+        margin: 0 10px 0 10px;
+    }
+    .parallax{
+        height: 30rem;
+    }
+}
+
+@media screen and (max-width:876px)
+{
+    .right-part .simple-font{
+        font-size:50px;
+        line-height: -2px;
+    }
+    .key-specs{
+        font-size: 40px;
+    }
+    .link1 , .deal{
+        padding: 2px 15px;
+    }
+    .two-links{
+        margin-top: -30px !important;
+    }
+    /*
+    .part4{
+        margin-top: 15%;
+    }
+    */
+}
+
+@media screen and (max-width:830px)
+{
+    .bike1-name{
+        font-size: 60px;
+    }
+    .link1 , .deal{
+        padding: 2px 15px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width:767px)
+{
+    .bike1-name{
+        font-size: 80px;
+    }
+    .sec4 .specs-right .technical, .performance{
+        text-align: center;
+    }
+    .sec2 .poll{
+        text-align: center;
+    }
+    .warranty2 .w1, .w2{
+        font-size: 0.8rem;
+    }
+    .warranty2 .last{
+        padding: 0 !important;
+    }
+    .sec3 .heading{
+        font-size: 40px;
+    }
+    .comp1{
+        visibility: hidden;
+    }
+    .comp2{
+        visibility: visible;
+    }
+    .right-part .simple-font{
+        text-align: center;
+        margin-bottom: 0em;
+    }
+    .comp2{
+        font-size: 50px;
+        color: rgb(15, 85, 74);
+        font-weight: 700;
+    }
+    .right-part{
+        margin-top: -60px;
+    }
+    .two-links{
+        margin-top: 0px !important;
+    }
+
+    .part4{
+        margin-top: 40px;
+    }
+
+    .sec6 {
+        box-shadow: none;
+        padding-top : 0px;
+        padding-bottom: 30px;
+    }
+
+    .vehicle-lead-form {
+        margin-top: 30px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media screen and (max-width:577px)
+{
+    .warranty1{
+        font-size: 2.8rem;
+    }
+    .warranty2 .w1{
+        font-size: 1.2rem;
+    }
+    .warranty2 .w2{
+        font-size: 1rem;
+    }
+    .last{
+        margin-bottom: 30px;
+    }
+
+    .key-specs{
+        margin-top: 35px;
+        font-size: 35px;
+    }
+
+    .comp2{
+        font-size: 45px;
+    }
+    .modal-dialog{
+        margin: auto !important;
+    }
+    .parallax{
+        height: 20rem;
+    }
+    .parallax-inner{
+        width: 100%;
+    }
+    .bike1-name{
+        font-size: 70px;
+    }
+
+    .part4 {
+        margin-top: 40px;
+    }
+}
+@media screen and (max-width:508px)
+{
+    .comp2{
+        font-size: 32px;
+        font-weight: 800;
+    }
+    .bike1-name{
+        margin-top: -8%;
+        font-size: 65px;
+    }
+    .sec3 .heading{
+        font-size: 30px;
+    }
+    .key-specs{
+        font-size: 25px;
+    }
+    .warranty1{
+        font-size: 2.5rem;
+    }
+    .two-links{
+        margin-top: 20px !important;
+    }
+    .sec2{
+        margin-top: 60px;
+    }
+    .charge{
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width:400px)
+{
+
+    .comp2{
+        font-size: 25px;
+        font-weight: 700;
+        line-height: -90px;
+        word-spacing: 0em;
+        letter-spacing: 0px;
+    }
+    .bike1-name{
+        font-size: 45px;
+        margin-top: -5%;
+        margin-left: 2%;
+    }
+    .sec3 .heading{
+        font-size: 20px;
+        margin-top: 10%;
+    }
+    .sec3-content{
+        margin-top: 4%;
+    }
+    .two-links{
+        margin-top: 0px !important;
+    }
+    .sec2{
+        margin-top: 60px;
+    }
+    .KM_text{
+        font-size: 18px;
+    }
+    .key-specs{
+        font-size: 22px;
+    }
+    .link1 , .deal{
+        padding: 3px 10px;
+        color: white;
+        background-color: tomato;
+        border: 2px solid tomato;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 13px;
+    }
+    .warranty1{
+        font-size: 2rem;
+    }
+    .warranty2 .w1{
+        font-size: 1rem;
+    }
+}
+@media screen and (max-width:334px)
+{
+    .comp2{
+        font-size: 22px;
+        font-weight: 700;
+        line-height: -90px;
+        word-spacing: 0em;
+        letter-spacing: 0px;
+    }
+    .bike1-name{
+        font-size: 40px;
+        margin-top: -25px;
+    }
+    .sec3 .heading{
+        font-size: 18px;
+    }
+    .right-part{
+        margin-top: -80px;
+    }
+    .charge{
+        font-size: 1.7rem;
+    }
+    .link1 , .deal{
+        padding: 2px 9px;
+        color: white;
+        background-color: tomato;
+        border: 2px solid tomato;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 11px;
+    }
+}
+/**************8Modal Pop-Up**********8*/
+
+.modal-content{
+    /*For Blue Background
+    background: linear-gradient(40deg, #45cafc, #303f9f);
+    */
+    background-image: linear-gradient(to bottom right,#bb6d79,#ac3346,#5c181f);
+    font-size: 18px;
+}
+.modal-header{
+    font-family: 'Roboto', sans-serif;
+}
+.icn{
+    font-size: 22px;
+    margin-right: 4px;
+}
+.ride{
+    margin-left: 7.4rem;
+    font-weight: 600;
+}
+.buttn{
+    font-weight: 550;
+    color: black;
+    background-color: white;
+}
+.buttn:hover{
+    color: black;
+    background-color: rgb(236, 234, 234);
+    box-shadow: 0 4px 16px 0 rgba(63, 63, 63, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.close{
+    outline: none !important;
+}
+.close:hover{
+    transition: 0.4s;
+    color: white;
+}
+.chat{
+    font-size: 20px;
+}
+
+.sub-head{
+    color: black;
+    font-size: 17px;
+    font-weight: 600;
+}

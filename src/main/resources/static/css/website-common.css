@@ -1,0 +1,21 @@
+.page-content {
+    margin-top : 240px;
+}
+
+@media screen and (max-width: 1200px) {
+    .page-content {
+        margin-top: 70px;
+    }
+}
+
+.floating-button {
+    position:fixed;
+    width: 80px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color: #cc0030;
+    color:#FFF;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+}
