@@ -19,7 +19,24 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="mb-4">Price List Manager</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Price List Manager</h1>
+            <div class="data-source-info">
+                <span th:if="${isFirestore}" class="badge bg-primary">Firestore Data</span>
+                <span th:unless="${isFirestore}" class="badge bg-secondary">CSV Data</span>
+                <a th:if="${isFirestore}" href="/price-list" class="btn btn-outline-secondary btn-sm ms-2">Switch to CSV</a>
+                <a th:unless="${isFirestore}" href="/firestore-price-list" class="btn btn-outline-primary btn-sm ms-2">Switch to Firestore</a>
+            </div>
+        </div>
+        
+        <!-- Admin Panel -->
+        <div th:if="${isAdmin}" class="admin-panel mb-4 p-3 border rounded bg-light">
+            <h3>Admin Panel</h3>
+            <p>You have administrative access to manage products.</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                <i class="bi bi-plus-circle"></i> Add New Product
+            </button>
+        </div>
         
         <div class="row">
             <!-- Filters Column -->
@@ -82,6 +99,7 @@
                                 <th scope="col" class="sortable" data-sort="maxPrice">Max Price</th>
                                 <th scope="col" class="sortable" data-sort="stock">Stock</th>
                                 <th scope="col" class="sortable" data-sort="barcode">Barcode</th>
+                                <th th:if="${isAdmin}" scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,6 +126,23 @@
                                     <span th:text="${product.barcode}"></span>
                                     <i class="bi bi-upc-scan barcode-icon" th:data-barcode="${product.barcode}"></i>
                                 </td>
+                                <td th:if="${isAdmin}" class="action-buttons">
+                                    <button class="btn btn-sm btn-warning edit-product" 
+                                            th:data-product-id="${product.id}"
+                                            th:data-product-name="${product.name}"
+                                            th:data-product-category="${product.category}"
+                                            th:data-product-brand="${product.brand}"
+                                            th:data-product-min-price="${product.minimumSellingPrice}"
+                                            th:data-product-max-price="${product.maximumSellingPrice}"
+                                            th:data-product-stock="${product.stockAvailability}"
+                                            th:data-product-photo-url="${product.photoUrl}"
+                                            th:data-product-barcode="${product.barcode}">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger delete-product" th:data-product-id="${product.id}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -129,6 +164,115 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="add-name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="add-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="add-category" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-brand" class="form-label">Brand</label>
+                            <input type="text" class="form-control" id="add-brand" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="add-min-price" class="form-label">Min Price</label>
+                                <input type="number" class="form-control" id="add-min-price" min="0" step="0.01" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="add-max-price" class="form-label">Max Price</label>
+                                <input type="number" class="form-control" id="add-max-price" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-stock" class="form-label">Stock Availability</label>
+                            <input type="number" class="form-control" id="add-stock" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-photo-url" class="form-label">Photo URL</label>
+                            <input type="text" class="form-control" id="add-photo-url">
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-barcode" class="form-label">Barcode</label>
+                            <input type="text" class="form-control" id="add-barcode">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm">
+                        <input type="hidden" id="edit-product-id">
+                        <div class="mb-3">
+                            <label for="edit-name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="edit-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="edit-category" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-brand" class="form-label">Brand</label>
+                            <input type="text" class="form-control" id="edit-brand" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="edit-min-price" class="form-label">Min Price</label>
+                                <input type="number" class="form-control" id="edit-min-price" min="0" step="0.01" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="edit-max-price" class="form-label">Max Price</label>
+                                <input type="number" class="form-control" id="edit-max-price" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-stock" class="form-label">Stock Availability</label>
+                            <input type="number" class="form-control" id="edit-stock" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-photo-url" class="form-label">Photo URL</label>
+                            <input type="text" class="form-control" id="edit-photo-url">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-barcode" class="form-label">Barcode</label>
+                            <input type="text" class="form-control" id="edit-barcode">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

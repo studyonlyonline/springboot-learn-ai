@@ -23,13 +23,24 @@ const PriceListConfig = {
         modalPhoto: '#modalPhoto',
         photoModalLabel: '#photoModalLabel',
         productThumbnails: '.product-thumbnail',
-        barcodeIcons: '.barcode-icon'
+        barcodeIcons: '.barcode-icon',
+        // Admin selectors
+        addProductForm: '#addProductForm',
+        editProductForm: '#editProductForm',
+        editProductModal: '#editProductModal',
+        editProductButtons: '.edit-product',
+        deleteProductButtons: '.delete-product'
     },
     
     // API endpoints
     api: {
-        search: '/price-list/search',
-        autocomplete: '/price-list/autocomplete'
+        search: window.location.pathname.includes('firestore') ? '/firestore-price-list/search' : '/price-list/search',
+        autocomplete: window.location.pathname.includes('firestore') ? '/firestore-price-list/autocomplete' : '/price-list/autocomplete',
+        // Admin API endpoints
+        getProduct: (id) => `/firestore-price-list/products/${id}`,
+        addProduct: '/firestore-price-list/products',
+        updateProduct: (id) => `/firestore-price-list/products/${id}`,
+        deleteProduct: (id) => `/firestore-price-list/products/${id}`
     },
     
     // Column indices for sorting
@@ -75,6 +86,135 @@ function initPriceListManager(config) {
         
         // Initialize barcode functionality
         initBarcodeHandling(config);
+        
+        // Initialize admin functionality if admin parameter is present
+        if (new URLSearchParams(window.location.search).get('admin') === 'azsxazsx') {
+            initAdminFunctionality(config);
+        }
+    });
+}
+
+/**
+ * Initialize admin functionality.
+ * 
+ * @param {Object} config - Configuration object
+ */
+function initAdminFunctionality(config) {
+    // Initialize add product form
+    $(config.selectors.addProductForm).submit(function(e) {
+        e.preventDefault();
+        
+        const product = {
+            name: $('#add-name').val(),
+            category: $('#add-category').val(),
+            brand: $('#add-brand').val(),
+            minimumSellingPrice: parseFloat($('#add-min-price').val()),
+            maximumSellingPrice: parseFloat($('#add-max-price').val()),
+            stockAvailability: parseInt($('#add-stock').val()),
+            photoUrl: $('#add-photo-url').val(),
+            barcode: $('#add-barcode').val()
+        };
+        
+        $.ajax({
+            url: config.api.addProduct + '?admin=azsxazsx',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(product),
+            success: function(data) {
+                // Close modal
+                $('#addProductModal').modal('hide');
+                
+                // Reset form
+                $(config.selectors.addProductForm)[0].reset();
+                
+                // Reload page to show updated data
+                window.location.reload();
+            },
+            error: function(xhr) {
+                alert('Error adding product: ' + xhr.responseText);
+            }
+        });
+    });
+    
+    // Initialize edit product button click
+    $(document).on('click', config.selectors.editProductButtons, function() {
+        const productId = $(this).data('product-id');
+        const productName = $(this).data('product-name');
+        const productCategory = $(this).data('product-category');
+        const productBrand = $(this).data('product-brand');
+        const productMinPrice = $(this).data('product-min-price');
+        const productMaxPrice = $(this).data('product-max-price');
+        const productStock = $(this).data('product-stock');
+        const productPhotoUrl = $(this).data('product-photo-url');
+        const productBarcode = $(this).data('product-barcode');
+        
+        // Populate form fields
+        $('#edit-product-id').val(productId);
+        $('#edit-name').val(productName);
+        $('#edit-category').val(productCategory);
+        $('#edit-brand').val(productBrand);
+        $('#edit-min-price').val(productMinPrice);
+        $('#edit-max-price').val(productMaxPrice);
+        $('#edit-stock').val(productStock);
+        $('#edit-photo-url').val(productPhotoUrl);
+        $('#edit-barcode').val(productBarcode);
+        
+        // Show modal
+        $(config.selectors.editProductModal).modal('show');
+    });
+    
+    // Initialize edit product form submit
+    $(config.selectors.editProductForm).submit(function(e) {
+        e.preventDefault();
+        
+        const productId = $('#edit-product-id').val();
+        const product = {
+            id: productId,
+            name: $('#edit-name').val(),
+            category: $('#edit-category').val(),
+            brand: $('#edit-brand').val(),
+            minimumSellingPrice: parseFloat($('#edit-min-price').val()),
+            maximumSellingPrice: parseFloat($('#edit-max-price').val()),
+            stockAvailability: parseInt($('#edit-stock').val()),
+            photoUrl: $('#edit-photo-url').val(),
+            barcode: $('#edit-barcode').val()
+        };
+        
+        $.ajax({
+            url: config.api.updateProduct(productId) + '?admin=azsxazsx',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(product),
+            success: function(data) {
+                // Close modal
+                $(config.selectors.editProductModal).modal('hide');
+                
+                // Reload page to show updated data
+                window.location.reload();
+            },
+            error: function(xhr) {
+                alert('Error updating product: ' + xhr.responseText);
+            }
+        });
+    });
+    
+    // Initialize delete product button click
+    $(document).on('click', config.selectors.deleteProductButtons, function() {
+        const productId = $(this).data('product-id');
+        
+        if (confirm('Are you sure you want to delete this product?')) {
+            $.ajax({
+                url: config.api.deleteProduct(productId) + '?admin=azsxazsx',
+                type: 'DELETE',
+                success: function() {
+                    // Reload page to show updated data
+                    window.location.reload();
+                },
+                error: function(xhr) {
+                    alert('Error deleting product: ' + xhr.responseText);
+                }
+            });
+        }
     });
 }
 
@@ -327,6 +467,34 @@ function updateTable(products, config) {
             .append($("<td>").text("$" + product.maximumSellingPrice.toFixed(2)))
             .append($("<td>").addClass(stockClass).text(product.stockAvailability))
             .append(barcodeCell);
+        
+        // Add action buttons if in admin mode
+        if (new URLSearchParams(window.location.search).get('admin') === 'azsxazsx') {
+            const actionCell = $("<td>").addClass("action-buttons");
+            
+            // Add edit button
+            const editButton = $("<button>")
+                .addClass("btn btn-sm btn-warning edit-product")
+                .attr("data-product-id", product.id)
+                .attr("data-product-name", product.name)
+                .attr("data-product-category", product.category)
+                .attr("data-product-brand", product.brand)
+                .attr("data-product-min-price", product.minimumSellingPrice)
+                .attr("data-product-max-price", product.maximumSellingPrice)
+                .attr("data-product-stock", product.stockAvailability)
+                .attr("data-product-photo-url", product.photoUrl || "")
+                .attr("data-product-barcode", product.barcode || "")
+                .append($("<i>").addClass("bi bi-pencil"));
+            
+            // Add delete button
+            const deleteButton = $("<button>")
+                .addClass("btn btn-sm btn-danger delete-product")
+                .attr("data-product-id", product.id)
+                .append($("<i>").addClass("bi bi-trash"));
+            
+            actionCell.append(editButton).append(" ").append(deleteButton);
+            row.append(actionCell);
+        }
         
         tbody.append(row);
     });

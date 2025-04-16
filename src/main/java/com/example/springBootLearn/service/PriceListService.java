@@ -1,17 +1,10 @@
 package com.example.springBootLearn.service;
 
 import com.example.springBootLearn.model.Product;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,50 +14,20 @@ import java.util.stream.Collectors;
 @Service
 public class PriceListService {
 
-    private List<Product> products;
+    private ProductDataSource dataSource;
 
-    public PriceListService() {
-        this.products = loadProductsFromCsv();
+    @Autowired
+    public PriceListService(@Qualifier("csvProductDataSource") ProductDataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     /**
-     * Load products from the CSV file.
+     * Set the data source to use.
      *
-     * @return List of products
+     * @param dataSource The data source to use
      */
-    private List<Product> loadProductsFromCsv() {
-        List<Product> productList = new ArrayList<>();
-        
-        try {
-            ClassPathResource resource = new ClassPathResource("data/products.csv");
-            Reader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-            
-            CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
-                    .withFirstRecordAsHeader()
-                    .withIgnoreHeaderCase()
-                    .withTrim());
-            
-            for (CSVRecord csvRecord : csvParser) {
-                Product product = new Product(
-                        csvRecord.get("name"),
-                        csvRecord.get("category"),
-                        csvRecord.get("brand"),
-                        Double.parseDouble(csvRecord.get("minimumSellingPrice")),
-                        Double.parseDouble(csvRecord.get("maximumSellingPrice")),
-                        Integer.parseInt(csvRecord.get("stockAvailability")),
-                        csvRecord.get("photoUrl"),
-                        csvRecord.get("barcode")
-                );
-                productList.add(product);
-            }
-            
-            csvParser.close();
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return productList;
+    public void setDataSource(ProductDataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     /**
@@ -73,7 +36,7 @@ public class PriceListService {
      * @return List of all products
      */
     public List<Product> getAllProducts() {
-        return products;
+        return dataSource.getAllProducts();
     }
 
     /**
@@ -83,6 +46,8 @@ public class PriceListService {
      * @return List of products matching the query
      */
     public List<Product> searchProducts(String query) {
+        List<Product> products = dataSource.getAllProducts();
+        
         if (query == null || query.trim().isEmpty()) {
             return products;
         }
@@ -104,7 +69,7 @@ public class PriceListService {
      * @return List of unique categories
      */
     public List<String> getUniqueCategories() {
-        return products.stream()
+        return dataSource.getAllProducts().stream()
                 .map(Product::getCategory)
                 .distinct()
                 .collect(Collectors.toList());
@@ -116,7 +81,7 @@ public class PriceListService {
      * @return List of unique brands
      */
     public List<String> getUniqueBrands() {
-        return products.stream()
+        return dataSource.getAllProducts().stream()
                 .map(Product::getBrand)
                 .distinct()
                 .collect(Collectors.toList());
@@ -128,9 +93,48 @@ public class PriceListService {
      * @return List of product names
      */
     public List<String> getProductNames() {
-        return products.stream()
+        return dataSource.getAllProducts().stream()
                 .map(Product::getName)
                 .distinct()
                 .collect(Collectors.toList());
+    }
+    
+    /**
+     * Get a product by ID.
+     *
+     * @param id The product ID
+     * @return The product, or null if not found
+     */
+    public Product getProductById(String id) {
+        return dataSource.getProductById(id);
+    }
+    
+    /**
+     * Save a new product.
+     *
+     * @param product The product to save
+     * @return The saved product with ID assigned
+     */
+    public Product saveProduct(Product product) {
+        return dataSource.saveProduct(product);
+    }
+    
+    /**
+     * Update an existing product.
+     *
+     * @param product The product to update
+     * @return The updated product, or null if not found
+     */
+    public Product updateProduct(Product product) {
+        return dataSource.updateProduct(product);
+    }
+    
+    /**
+     * Delete a product by ID.
+     *
+     * @param id The ID of the product to delete
+     */
+    public void deleteProduct(String id) {
+        dataSource.deleteProduct(id);
     }
 }

@@ -9,7 +9,7 @@ import com.google.cloud.firestore.FirestoreOptions;
  * Common service for initializing Firestore database connection.
  * This class is moved to the common module to be reused across the application.
  */
-// @Service
+@Service
 public class FirestoreInitializer {
 
     @Value("${gcp.projectId}")
