@@ -1,12 +1,13 @@
 package com.example.springBootLearn;
 
 import com.example.common.CommonModuleConfiguration;
+import com.example.pricelist.PriceListModuleConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(CommonModuleConfiguration.class)
+@Import({CommonModuleConfiguration.class, PriceListModuleConfiguration.class})
 public class SpringBootLearnApplication {
 
 	public static void main(String[] args) {

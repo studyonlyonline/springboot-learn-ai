@@ -1,7 +1,7 @@
-package com.example.springBootLearn.controller;
+package com.example.pricelist.controller;
 
-import com.example.springBootLearn.model.Product;
-import com.example.springBootLearn.service.PriceListService;
+import com.example.pricelist.model.Product;
+import com.example.pricelist.service.PriceListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

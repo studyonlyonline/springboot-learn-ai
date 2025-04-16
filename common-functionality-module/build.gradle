@@ -36,3 +36,7 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10'
+}

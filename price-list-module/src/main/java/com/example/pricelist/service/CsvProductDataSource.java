@@ -1,6 +1,6 @@
-package com.example.springBootLearn.service;
+package com.example.pricelist.service;
 
-import com.example.springBootLearn.model.Product;
+import com.example.pricelist.model.Product;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;

@@ -1,7 +1,7 @@
-package com.example.springBootLearn.service;
+package com.example.pricelist.service;
 
 import com.example.common.service.FirestoreInitializer;
-import com.example.springBootLearn.model.Product;
+import com.example.pricelist.model.Product;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.api.core.ApiFuture;
@@ -43,6 +43,7 @@ public class FirestoreProductDataSource implements ProductDataSource {
     private void initializeCache() {
         try {
             List<Product> products = fetchAllProductsFromFirestore();
+            System.out.println("all firestore products" + products.size());
             productCache.put("allProducts", products);
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +61,7 @@ public class FirestoreProductDataSource implements ProductDataSource {
         List<Product> products = new ArrayList<>();
         ApiFuture<QuerySnapshot> future = db.collection(COLLECTION_NAME).get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        
+        System.out.println("document size" + documents.size());
         for (QueryDocumentSnapshot document : documents) {
             Product product = document.toObject(Product.class);
             product.setId(document.getId());

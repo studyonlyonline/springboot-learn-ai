@@ -1,8 +1,8 @@
-package com.example.springBootLearn.controller;
+package com.example.pricelist.controller;
 
-import com.example.springBootLearn.model.Product;
-import com.example.springBootLearn.service.PriceListService;
-import com.example.springBootLearn.service.ProductDataSource;
+import com.example.pricelist.model.Product;
+import com.example.pricelist.service.PriceListService;
+import com.example.pricelist.service.ProductDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ import java.util.stream.Stream;
  */
 @Controller
 @RequestMapping("/firestore-price-list")
-public class FirestorePriceListController {
+public class PriceListFirestoreController {
 
     private final PriceListService priceListService;
     
     @Autowired
-    public FirestorePriceListController(
+    public PriceListFirestoreController(
             PriceListService priceListService,
             @Qualifier("firestoreProductDataSource") ProductDataSource firestoreDataSource) {
         this.priceListService = priceListService;

@@ -1,6 +1,6 @@
-package com.example.springBootLearn.service;
+package com.example.pricelist.service;
 
-import com.example.springBootLearn.model.Product;
+import com.example.pricelist.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.springBootLearn.model;
+package com.example.pricelist.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

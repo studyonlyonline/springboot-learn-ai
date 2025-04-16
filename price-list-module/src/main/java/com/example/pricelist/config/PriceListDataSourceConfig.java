@@ -1,6 +1,6 @@
-package com.example.springBootLearn.config;
+package com.example.pricelist.config;
 
-import com.example.springBootLearn.service.ProductDataSource;
+import com.example.pricelist.service.ProductDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Primary;
  * Configuration for data source selection.
  */
 @Configuration
-public class DataSourceConfig {
+public class PriceListDataSourceConfig {
     
     /**
      * Configure the default product data source.
