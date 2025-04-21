@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Price List Manager</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="/css/price-list.css" rel="stylesheet">
+    
+    <style>
+        .checkout-summary {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .payment-method-option {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .payment-method-option:hover {
+            border-color: #adb5bd;
+        }
+        
+        .payment-method-option.selected {
+            border-color: #0d6efd;
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+        
+        .payment-method-option .payment-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .order-success {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .order-success i {
+            font-size: 5rem;
+            color: #198754;
+            margin-bottom: 20px;
+        }
+        
+        .payment-method-option.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Checkout</h1>
+            <a href="/cart" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Cart
+            </a>
+        </div>
+        
+        <!-- Checkout Process -->
+        <div class="row" id="checkout-form-container">
+            <!-- Customer Information -->
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Customer Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="checkout-form">
+                            <div class="mb-3">
+                                <label for="customer-name" class="form-label">Customer Name</label>
+                                <input type="text" class="form-control" id="customer-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="customer-contact" class="form-label">Contact Information (Phone/Email)</label>
+                                <input type="text" class="form-control" id="customer-contact" required>
+                            </div>
+                            
+                            <h5 class="mt-4 mb-3">Payment Method</h5>
+                            <div class="payment-methods">
+                                <div class="payment-method-option selected" data-payment-method="CASH">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-cash payment-icon"></i>
+                                        <div>
+                                            <strong>Cash</strong>
+                                            <div class="text-muted">Pay with cash upon delivery</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-method-option" data-payment-method="CREDIT_CARD">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-credit-card payment-icon"></i>
+                                        <div>
+                                            <strong>Credit Card</strong>
+                                            <div class="text-muted">Pay with credit card</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-method-option" data-payment-method="DEBIT_CARD">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-credit-card-2-front payment-icon"></i>
+                                        <div>
+                                            <strong>Debit Card</strong>
+                                            <div class="text-muted">Pay with debit card</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-method-option" data-payment-method="UPI">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-phone payment-icon"></i>
+                                        <div>
+                                            <strong>UPI</strong>
+                                            <div class="text-muted">Pay with UPI</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary">Place Order</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Order Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="checkout-summary">
+                            <div class="mb-3">
+                                <h6>Items</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <tbody>
+                                            <tr th:each="item : ${cart.items}">
+                                                <td>
+                                                    <span th:text="${item.quantity + ' x ' + item.product.name}"></span>
+                                                    <div class="text-muted small" th:text="${item.product.brand}"></div>
+                                                </td>
+                                                <td class="text-end" th:text="${'$' + #numbers.formatDecimal(item.subtotal, 1, 2)}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Total Items:</span>
+                                <span th:text="${cart.totalItems}"></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="fw-bold">Total Amount:</span>
+                                <span class="fw-bold" th:text="${'$' + #numbers.formatDecimal(cart.total, 1, 2)}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order Success Message (Hidden by default) -->
+        <div class="row d-none" id="order-success-container">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="order-success">
+                            <i class="bi bi-check-circle"></i>
+                            <h3>Order Placed Successfully!</h3>
+                            <p class="text-muted">Your order has been placed successfully. Thank you for your purchase!</p>
+                            <div class="order-details mt-4">
+                                <div class="row mb-2">
+                                    <div class="col-md-4 text-muted">Order ID:</div>
+                                    <div class="col-md-8" id="success-order-id"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 text-muted">Total Amount:</div>
+                                    <div class="col-md-8" id="success-total"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 text-muted">Payment Method:</div>
+                                    <div class="col-md-8" id="success-payment-method"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 text-muted">Payment Status:</div>
+                                    <div class="col-md-8" id="success-payment-status"></div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="/orders" class="btn btn-primary me-2">View All Orders</a>
+                                <a href="/price-list" class="btn btn-outline-secondary">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Checkout JavaScript -->
+    <script>
+        $(document).ready(function() {
+            // Payment method selection
+            $('.payment-method-option').click(function() {
+                $('.payment-method-option').removeClass('selected');
+                $(this).addClass('selected');
+            });
+            
+            // Form submission
+            $('#checkout-form').submit(function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const customerName = $('#customer-name').val();
+                const customerContact = $('#customer-contact').val();
+                const paymentMethod = $('.payment-method-option.selected').data('payment-method');
+                
+                // Disable form to prevent multiple submissions
+                const $submitButton = $(this).find('button[type="submit"]');
+                const originalButtonText = $submitButton.html();
+                $submitButton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...');
+                $submitButton.prop('disabled', true);
+                $('#checkout-form input').prop('disabled', true);
+                $('.payment-method-option').css('pointer-events', 'none').addClass('disabled');
+                
+                // Place order
+                $.ajax({
+                    url: '/checkout/place-order',
+                    type: 'POST',
+                    data: {
+                        customerName: customerName,
+                        customerContact: customerContact,
+                        paymentMethod: paymentMethod
+                    },
+                    success: function(response) {
+                        // Show success message
+                        $('#checkout-form-container').addClass('d-none');
+                        $('#order-success-container').removeClass('d-none');
+                        
+                        // Populate success message
+                        $('#success-order-id').text(response.orderId);
+                        $('#success-total').text('$' + response.total.toFixed(2));
+                        $('#success-payment-method').text(getPaymentMethodName(paymentMethod));
+                        $('#success-payment-status').text(response.paymentStatus);
+                        
+                        // If payment method is not cash, complete payment
+                        if (paymentMethod !== 'CASH') {
+                            completePayment(response.orderId);
+                        }
+                    },
+                    error: function(xhr) {
+                        // Re-enable form on error
+                        $submitButton.html(originalButtonText);
+                        $submitButton.prop('disabled', false);
+                        $('#checkout-form input').prop('disabled', false);
+                        $('.payment-method-option').css('pointer-events', 'auto').removeClass('disabled');
+                        
+                        // Show error message
+                        let errorMessage = 'An error occurred while placing your order.';
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMessage = xhr.responseJSON.error;
+                        }
+                        alert(errorMessage);
+                    }
+                });
+            });
+            
+            // Complete payment function (simulated)
+            function completePayment(orderId) {
+                // In a real implementation, this would redirect to a payment gateway
+                // For now, we'll just simulate a successful payment
+                setTimeout(function() {
+                    $.ajax({
+                        url: '/checkout/complete-payment',
+                        type: 'POST',
+                        data: {
+                            orderId: orderId,
+                            transactionId: 'SIMULATED-' + Math.random().toString(36).substring(2, 15)
+                        },
+                        success: function(response) {
+                            $('#success-payment-status').text(response.paymentStatus);
+                        }
+                    });
+                }, 2000);
+            }
+            
+            // Helper function to get payment method name
+            function getPaymentMethodName(method) {
+                switch (method) {
+                    case 'CASH': return 'Cash';
+                    case 'CREDIT_CARD': return 'Credit Card';
+                    case 'DEBIT_CARD': return 'Debit Card';
+                    case 'UPI': return 'UPI';
+                    default: return method;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

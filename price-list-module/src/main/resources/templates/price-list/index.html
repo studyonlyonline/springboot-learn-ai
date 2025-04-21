@@ -99,11 +99,12 @@
                                 <th scope="col" class="sortable" data-sort="maxPrice">Max Price</th>
                                 <th scope="col" class="sortable" data-sort="stock">Stock</th>
                                 <th scope="col" class="sortable" data-sort="barcode">Barcode</th>
+                                <th scope="col">POS Action</th>
                                 <th th:if="${isAdmin}" scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="product : ${products}">
+                            <tr th:each="product : ${products}" th:data-product-id="${product.id}">
                                 <td>
                                     <img th:if="${product.photoUrl != null && !product.photoUrl.isEmpty()}" 
                                          th:src="${product.photoUrl}" 
@@ -125,6 +126,16 @@
                                 <td>
                                     <span th:text="${product.barcode}"></span>
                                     <i class="bi bi-upc-scan barcode-icon" th:data-barcode="${product.barcode}"></i>
+                                </td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-sm btn-success add-to-cart-btn"
+                                            th:data-product-id="${product.id}"
+                                            th:data-product-name="${product.name}"
+                                            th:data-product-min-price="${product.minimumSellingPrice}"
+                                            th:data-product-max-price="${product.maximumSellingPrice}"
+                                            th:data-product-stock="${product.stockAvailability}">
+                                        <i class="bi bi-cart-plus"></i> Add to Cart
+                                    </button>
                                 </td>
                                 <td th:if="${isAdmin}" class="action-buttons">
                                     <button class="btn btn-sm btn-warning edit-product" 
@@ -151,6 +162,41 @@
         </div>
     </div>
     
+    <!-- Add to Cart Modal -->
+    <div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addToCartModalLabel">Add to Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{/cart/add}" method="post" th:object="${cartItemRequest}">
+                    <div class="modal-body">
+                        <input type="hidden" id="productId" name="productId" th:field="*{productId}">
+                        <div class="mb-3">
+                            <label for="product-name" class="form-label">Product</label>
+                            <input type="text" class="form-control" id="product-name" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" th:field="*{quantity}" min="1" required>
+                            <div class="form-text" id="stock-info">Available stock: </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sellingPrice" class="form-label">Selling Price</label>
+                            <input type="number" class="form-control" id="sellingPrice" th:field="*{sellingPrice}" step="0.01" required>
+                            <div class="form-text" id="price-range">Price range: </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Photo Modal -->
     <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

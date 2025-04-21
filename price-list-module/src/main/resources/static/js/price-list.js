@@ -52,7 +52,8 @@ const PriceListConfig = {
         minPrice: 4,
         maxPrice: 5,
         stock: 6,
-        barcode: 7
+        barcode: 7,
+        posAction: 8
     },
     
     // Stock level thresholds
@@ -458,7 +459,20 @@ function updateTable(products, config) {
             );
         }
         
+        // Create POS Action cell with Add to Cart button
+        const posActionCell = $("<td>").addClass("action-buttons");
+        const addToCartBtn = $("<button>")
+            .addClass("btn btn-sm btn-success add-to-cart-btn")
+            .attr("data-product-id", product.id)
+            .attr("data-product-name", product.name)
+            .attr("data-product-min-price", product.minimumSellingPrice)
+            .attr("data-product-max-price", product.maximumSellingPrice)
+            .attr("data-product-stock", product.stockAvailability)
+            .html('<i class="bi bi-cart-plus"></i> Add to Cart');
+        posActionCell.append(addToCartBtn);
+        
         const row = $("<tr>")
+            .attr("data-product-id", product.id)
             .append(photoCell)
             .append($("<td>").text(product.category))
             .append($("<td>").text(product.brand))
@@ -466,9 +480,10 @@ function updateTable(products, config) {
             .append($("<td>").text("$" + product.minimumSellingPrice.toFixed(2)))
             .append($("<td>").text("$" + product.maximumSellingPrice.toFixed(2)))
             .append($("<td>").addClass(stockClass).text(product.stockAvailability))
-            .append(barcodeCell);
+            .append(barcodeCell)
+            .append(posActionCell);
         
-        // Add action buttons if in admin mode
+        // Add admin action buttons if in admin mode
         if (new URLSearchParams(window.location.search).get('admin') === 'azsxazsx') {
             const actionCell = $("<td>").addClass("action-buttons");
             
@@ -522,3 +537,71 @@ function getStockClass(stockLevel, config) {
 
 // Initialize the price list manager with the default configuration
 initPriceListManager(PriceListConfig);
+
+/**
+ * Add to Cart functionality
+ */
+$(document).ready(function() {
+    // Add to Cart button click
+    $(document).on('click', '.add-to-cart-btn', function() {
+        const $btn = $(this);
+        const productId = $btn.data('product-id');
+        const productName = $btn.data('product-name');
+        const minPrice = $btn.data('product-min-price');
+        const maxPrice = $btn.data('product-max-price');
+        const stock = $btn.data('product-stock');
+        
+        // Populate form fields
+        $('#productId').val(productId);
+        $('#product-name').val(productName);
+        $('#quantity').val(1);
+        $('#quantity').attr('max', stock);
+        $('#stock-info').text('Available stock: ' + stock);
+        $('#sellingPrice').val(minPrice);
+        $('#sellingPrice').attr('min', minPrice);
+        $('#sellingPrice').attr('max', maxPrice);
+        $('#price-range').text('Price range: $' + minPrice + ' - $' + maxPrice);
+        
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('addToCartModal'));
+        modal.show();
+    });
+    
+    // Add cart icon to header
+    function addCartIcon() {
+        const $header = $('.container > .d-flex').first();
+        
+        // Check if cart icon already exists
+        if ($header.find('.cart-icon').length === 0) {
+            const $cartIcon = $(`
+                <div class="cart-icon ms-3">
+                    <a href="/cart" class="btn btn-outline-primary position-relative">
+                        <i class="bi bi-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            0
+                        </span>
+                    </a>
+                </div>
+            `);
+            
+            $header.append($cartIcon);
+            
+            // Update cart count
+            updateCartCount();
+        }
+    }
+    
+    // Update cart count
+    function updateCartCount() {
+        $.ajax({
+            url: '/cart/summary',
+            type: 'GET',
+            success: function(response) {
+                $('.cart-count').text(response.itemCount);
+            }
+        });
+    }
+    
+    // Add cart icon when page loads
+    addCartIcon();
+});

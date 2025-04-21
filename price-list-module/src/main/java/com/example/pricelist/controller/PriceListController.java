@@ -1,11 +1,12 @@
 package com.example.pricelist.controller;
 
+import com.example.pricelist.model.CartItemRequest;
 import com.example.pricelist.model.Product;
 import com.example.pricelist.service.PriceListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,15 +33,16 @@ public class PriceListController {
     /**
      * Display the price list page.
      *
-     * @param model The model to add attributes to
-     * @return The view name
+     * @return ModelAndView containing the view name and model attributes
      */
     @GetMapping
-    public String getPriceListPage(Model model) {
-        model.addAttribute("products", priceListService.getAllProducts());
-        model.addAttribute("categories", priceListService.getUniqueCategories());
-        model.addAttribute("brands", priceListService.getUniqueBrands());
-        return "price-list/index";
+    public ModelAndView getPriceListPage() {
+        ModelAndView modelAndView = new ModelAndView("price-list/index");
+        modelAndView.addObject("products", priceListService.getAllProducts());
+        modelAndView.addObject("categories", priceListService.getUniqueCategories());
+        modelAndView.addObject("brands", priceListService.getUniqueBrands());
+        modelAndView.addObject("cartItemRequest", new CartItemRequest());
+        return modelAndView;
     }
 
     /**

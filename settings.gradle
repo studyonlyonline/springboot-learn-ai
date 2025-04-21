@@ -1,3 +1,4 @@
 rootProject.name = 'springBootLearn'
 include 'common-functionality-module'
 include 'price-list-module'
+include 'main-app-module'

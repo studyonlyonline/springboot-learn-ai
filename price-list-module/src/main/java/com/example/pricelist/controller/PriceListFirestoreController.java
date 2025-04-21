@@ -1,5 +1,6 @@
 package com.example.pricelist.controller;
 
+import com.example.pricelist.model.CartItemRequest;
 import com.example.pricelist.model.Product;
 import com.example.pricelist.service.PriceListService;
 import com.example.pricelist.service.ProductDataSource;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,13 +42,16 @@ public class PriceListFirestoreController {
      * @return The view name
      */
     @GetMapping
-    public String getPriceListPage(Model model, @RequestParam(required = false) String admin) {
-        model.addAttribute("products", priceListService.getAllProducts());
-        model.addAttribute("categories", priceListService.getUniqueCategories());
-        model.addAttribute("brands", priceListService.getUniqueBrands());
-        model.addAttribute("isFirestore", true);
-        model.addAttribute("isAdmin", "azsxazsx".equals(admin));
-        return "price-list/index";
+    public ModelAndView getPriceListPage(@RequestParam(required = false) String admin) {
+        ModelAndView modelAndView = new ModelAndView("price-list/index");
+        modelAndView.addObject("products", priceListService.getAllProducts());
+        modelAndView.addObject("categories", priceListService.getUniqueCategories());
+        modelAndView.addObject("brands", priceListService.getUniqueBrands());
+        modelAndView.addObject("cartItemRequest", new CartItemRequest());
+        modelAndView.addObject("isFirestore", true);
+        modelAndView.addObject("isAdmin", "azsxazsx".equals(admin));
+        
+        return modelAndView;
     }
 
     /**

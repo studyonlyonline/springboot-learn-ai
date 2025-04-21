@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Price List Manager</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="/css/price-list.css" rel="stylesheet">
+    
+    <style>
+        .order-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .status-new {
+            background-color: #cff4fc;
+            color: #055160;
+        }
+        
+        .status-processing {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+        
+        .status-completed {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+        
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+        
+        .payment-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .payment-pending {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+        
+        .payment-completed {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+        
+        .payment-failed {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+        
+        .order-summary {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .order-item-image {
+            max-width: 60px;
+            max-height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Order Details</h1>
+            <a href="/orders" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Orders
+            </a>
+        </div>
+        
+        <div class="row">
+            <!-- Order Information -->
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Order Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3 fw-bold">Order ID:</div>
+                            <div class="col-md-9" th:text="${order.id}"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 fw-bold">Date:</div>
+                            <div class="col-md-9" th:text="${#dates.format(order.createdAt, 'dd-MM-yyyy HH:mm')}"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 fw-bold">Customer:</div>
+                            <div class="col-md-9" th:text="${order.customerName}"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 fw-bold">Contact:</div>
+                            <div class="col-md-9" th:text="${order.customerContact}"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 fw-bold">Status:</div>
+                            <div class="col-md-9">
+                                <div class="d-flex align-items-center">
+                                    <span th:class="'order-status status-' + ${#strings.toLowerCase(order.orderStatus)}" th:text="${order.orderStatus}"></span>
+                                    <div class="dropdown ms-2">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Update
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="statusDropdown">
+                                            <li><a class="dropdown-item update-status" href="#" data-status="NEW">New</a></li>
+                                            <li><a class="dropdown-item update-status" href="#" data-status="PROCESSING">Processing</a></li>
+                                            <li><a class="dropdown-item update-status" href="#" data-status="COMPLETED">Completed</a></li>
+                                            <li><a class="dropdown-item update-status" href="#" data-status="CANCELLED">Cancelled</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 fw-bold">Payment Method:</div>
+                            <div class="col-md-9" th:text="${order.paymentMethod}"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 fw-bold">Payment Status:</div>
+                            <div class="col-md-9">
+                                <div class="d-flex align-items-center">
+                                    <span th:class="'payment-status payment-' + ${#strings.toLowerCase(order.paymentStatus)}" th:text="${order.paymentStatus}"></span>
+                                    <div class="dropdown ms-2" th:if="${order.paymentStatus != 'COMPLETED'}">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="paymentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Update
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="paymentDropdown">
+                                            <li><a class="dropdown-item update-payment" href="#" data-status="COMPLETED">Mark as Paid</a></li>
+                                            <li><a class="dropdown-item update-payment" href="#" data-status="FAILED">Mark as Failed</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Order Items</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${order.items}">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    <div th:text="${item.productName}"></div>
+                                                    <div class="text-muted small" th:text="${item.productBrand + ' - ' + item.productCategory}"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td th:text="${'$' + #numbers.formatDecimal(item.sellingPrice, 1, 2)}"></td>
+                                        <td th:text="${item.quantity}"></td>
+                                        <td th:text="${'$' + #numbers.formatDecimal(item.subtotal, 1, 2)}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Order Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="order-summary">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Total Items:</span>
+                                <span th:text="${order.items.size()}"></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Total Quantity:</span>
+                                <span th:text="${totalQuantity}"></span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="fw-bold">Total Amount:</span>
+                                <span class="fw-bold" th:text="${'$' + #numbers.formatDecimal(order.total, 1, 2)}"></span>
+                            </div>
+                            
+                            <div class="d-grid gap-2 mt-4">
+                                <a href="/price-list" class="btn btn-primary">
+                                    <i class="bi bi-cart-plus"></i> New Order
+                                </a>
+                                <button class="btn btn-outline-secondary" id="print-order">
+                                    <i class="bi bi-printer"></i> Print Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Order Details JavaScript -->
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            const orderId = /*[[${order.id}]]*/ '';
+            
+            // Update order status
+            $('.update-status').click(function(e) {
+                e.preventDefault();
+                const status = $(this).data('status');
+                
+                $.ajax({
+                    url: '/orders/' + orderId + '/status',
+                    type: 'POST',
+                    data: {
+                        status: status
+                    },
+                    success: function() {
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        let errorMessage = 'An error occurred while updating the order status.';
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMessage = xhr.responseJSON.error;
+                        }
+                        alert(errorMessage);
+                    }
+                });
+            });
+            
+            // Update payment status
+            $('.update-payment').click(function(e) {
+                e.preventDefault();
+                const status = $(this).data('status');
+                
+                $.ajax({
+                    url: '/checkout/complete-payment',
+                    type: 'POST',
+                    data: {
+                        orderId: orderId,
+                        transactionId: 'MANUAL-' + Math.random().toString(36).substring(2, 15)
+                    },
+                    success: function() {
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        let errorMessage = 'An error occurred while updating the payment status.';
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMessage = xhr.responseJSON.error;
+                        }
+                        alert(errorMessage);
+                    }
+                });
+            });
+            
+            // Print order
+            $('#print-order').click(function() {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>

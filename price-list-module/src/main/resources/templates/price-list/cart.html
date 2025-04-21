@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Price List Manager</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="/css/price-list.css" rel="stylesheet">
+    
+    <style>
+        .cart-item-image {
+            max-width: 80px;
+            max-height: 80px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-control button {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .quantity-control input {
+            width: 50px;
+            text-align: center;
+            margin: 0 5px;
+        }
+        
+        .cart-summary {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Shopping Cart</h1>
+            <a href="/price-list" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Price List
+            </a>
+        </div>
+        
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Cart Items</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Empty Cart Message -->
+                        <div th:if="${cart.items.isEmpty()}" class="text-center py-5">
+                            <i class="bi bi-cart-x" style="font-size: 3rem;"></i>
+                            <h4 class="mt-3">Your cart is empty</h4>
+                            <p class="text-muted">Add items from the price list to get started.</p>
+                            <a href="/price-list" class="btn btn-primary mt-2">Browse Products</a>
+                        </div>
+                        
+                        <!-- Cart Items Table -->
+                        <div th:unless="${cart.items.isEmpty()}" class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Subtotal</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${cart.items}">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img th:if="${item.product.photoUrl != null && !item.product.photoUrl.isEmpty()}" 
+                                                     th:src="${item.product.photoUrl}" 
+                                                     class="cart-item-image me-3" 
+                                                     th:alt="${item.product.name}">
+                                                <div>
+                                                    <h6 th:text="${item.product.name}"></h6>
+                                                    <small class="text-muted" th:text="${item.product.brand + ' - ' + item.product.category}"></small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td th:text="${'$' + #numbers.formatDecimal(item.sellingPrice, 1, 2)}"></td>
+                                        <td>
+                                            <div class="quantity-control">
+                                                <button class="btn btn-sm btn-outline-secondary decrease-quantity" th:data-product-id="${item.productId}">
+                                                    <i class="bi bi-dash"></i>
+                                                </button>
+                                                <input type="number" class="form-control quantity-input" th:value="${item.quantity}" min="1" th:data-product-id="${item.productId}">
+                                                <button class="btn btn-sm btn-outline-secondary increase-quantity" th:data-product-id="${item.productId}">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td th:text="${'$' + #numbers.formatDecimal(item.subtotal, 1, 2)}"></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger remove-item" th:data-product-id="${item.productId}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Clear Cart Button -->
+                        <div th:unless="${cart.items.isEmpty()}" class="text-end mt-3">
+                            <button id="clear-cart" class="btn btn-outline-danger">
+                                <i class="bi bi-trash"></i> Clear Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Summary -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Cart Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="cart-summary">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Total Items:</span>
+                                <span th:text="${cart.totalItems}"></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Total Amount:</span>
+                                <span class="fw-bold" th:text="${'$' + #numbers.formatDecimal(cart.total, 1, 2)}"></span>
+                            </div>
+                            <a th:if="${!cart.items.isEmpty()}" href="/checkout" class="btn btn-primary w-100">
+                                Proceed to Checkout <i class="bi bi-arrow-right"></i>
+                            </a>
+                            <a th:if="${cart.items.isEmpty()}" href="/price-list" class="btn btn-primary w-100">
+                                Browse Products <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Cart JavaScript -->
+    <script>
+        $(document).ready(function() {
+            // Increase quantity
+            $('.increase-quantity').click(function() {
+                const productId = $(this).data('product-id');
+                const input = $(this).siblings('.quantity-input');
+                let quantity = parseInt(input.val()) + 1;
+                updateQuantity(productId, quantity);
+            });
+            
+            // Decrease quantity
+            $('.decrease-quantity').click(function() {
+                const productId = $(this).data('product-id');
+                const input = $(this).siblings('.quantity-input');
+                let quantity = parseInt(input.val()) - 1;
+                if (quantity < 1) quantity = 1;
+                updateQuantity(productId, quantity);
+            });
+            
+            // Manual quantity input
+            $('.quantity-input').change(function() {
+                const productId = $(this).data('product-id');
+                let quantity = parseInt($(this).val());
+                if (quantity < 1) {
+                    quantity = 1;
+                    $(this).val(1);
+                }
+                updateQuantity(productId, quantity);
+            });
+            
+            // Remove item
+            $('.remove-item').click(function() {
+                const productId = $(this).data('product-id');
+                removeItem(productId);
+            });
+            
+            // Clear cart
+            $('#clear-cart').click(function() {
+                clearCart();
+            });
+            
+            // Update quantity function
+            function updateQuantity(productId, quantity) {
+                $.ajax({
+                    url: '/cart/update',
+                    type: 'POST',
+                    data: {
+                        productId: productId,
+                        quantity: quantity
+                    },
+                    success: function() {
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Error updating quantity: ' + xhr.responseText);
+                    }
+                });
+            }
+            
+            // Remove item function
+            function removeItem(productId) {
+                $.ajax({
+                    url: '/cart/remove/' + productId,
+                    type: 'DELETE',
+                    success: function() {
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Error removing item: ' + xhr.responseText);
+                    }
+                });
+            }
+            
+            // Clear cart function
+            function clearCart() {
+                $.ajax({
+                    url: '/cart/clear',
+                    type: 'POST',
+                    success: function() {
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Error clearing cart: ' + xhr.responseText);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
